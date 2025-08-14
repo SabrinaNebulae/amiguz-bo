@@ -1,0 +1,87 @@
+name: amiguz-bo
+recipe: symfony
+
+config:
+  via: apache
+  php: '8.4'
+  composer_version: '2.5.8'
+  webroot: public
+  database: sql
+  cache: redis
+  xdebug: false
+
+proxy:
+  appserver:
+    - amiguz-bo.lndo.site
+  mailhog:
+    - mail.amiguz-bo.lndo.site
+  pma:
+    - pma.amiguz-bo.lndo.site
+  adminer:
+    - adminer.amiguz-bo.lndo.site
+#  elasticsearch:
+#    - elasticsearch.amiguz-bo.lndo.site:9200
+
+services:
+  appserver:
+    scanner: false
+    build_as_root:
+      - apt-get update -y
+      - pecl install excimer
+#  database:
+#    portforward: 3310 # Change this fixed port for each project to avoid any conflict
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+    ssl: true
+    scanner: false
+    config:
+      config: lando/pma.php
+  adminer:
+    type: compose
+    ssl: true
+    scanner: false
+    services:
+      image: dehy/adminer:4.8.1
+      command: /bin/s6-svscan /etc/services.d
+    portforward: true
+    build_as_root:
+      - chmod +x /app/lando/lando.adminer.config.sh
+      - sh /app/lando/lando.adminer.config.sh dark_mode # Delete the 'dark_mode' param to deactivate the custom dark mode on Adminer
+  mailhog:
+    type: mailhog
+    ssl: true
+    scanner: false
+    hogfrom:
+      - appserver
+  node:
+    type: node:22
+  redis:
+    type: redis:5
+    persist: false
+    portforward: true
+#  elasticsearch:
+#    type: elasticsearch:8
+#    ssl: true
+#    scanner: false
+#    portforward: 9200
+#    plugins:
+#      - analysis-icu
+#    config:
+##      server: lando/elasticsearch.yml
+
+tooling:
+  # phpstan:
+  #     service: appserver
+  #     cmd: /app/vendor/bin/phpstan
+  # phpcs-fixer:
+  #     service: appserver
+  #     cmd: /app/vendor/bin/php-cs-fixer
+  npm:
+    service: node
+  redis-cli:
+      service: redis
+
+events:
+  post-start:
