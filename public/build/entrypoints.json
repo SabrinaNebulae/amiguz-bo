@@ -1,0 +1,18 @@
+{
+  "isBuild": false,
+  "viteServer": {
+    "origin": "http://127.0.0.1:5173",
+    "base": "/build/"
+  },
+  "entryPoints": {
+    "app": {
+      "js": [
+        {
+          "path": "http://127.0.0.1:5173/build/assets/js/app.js",
+          "hash": null
+        }
+      ]
+    }
+  },
+  "legacy": false
+}

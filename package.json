@@ -1,14 +1,23 @@
 {
-  "devDependencies": {
-    "@babel/preset-react": "^7.27.1",
-    "vite": "^6.3.5"
-  },
-  "dependencies": {
-    "latest": "^0.2.0"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "watch": "vite build --watch"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "license": "UNLICENSED",
+    "devDependencies": {
+        "@hotwired/stimulus": "^3.0.0",
+        "@symfony/stimulus-bridge": "^3.2.0 || ^4.0.0",
+        "@symfony/ux-react": "file:vendor/symfony/ux-react/assets",
+        "autoprefixer": "^10.4.16",
+        "postcss": "^8.4.31",
+        "react": "^18.0",
+        "react-dom": "^18.0",
+        "tailwindcss": "^3.3.5",
+        "vite": "^4.4.9",
+        "vite-plugin-symfony": "^5.0.0"
+    },
+    "dependencies": {
+        "@vitejs/plugin-react": "^4.7.0"
+    }
 }
