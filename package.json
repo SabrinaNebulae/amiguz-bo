@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@babel/preset-react": "^7.27.1",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "latest": "^0.2.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "watch": "vite build --watch"
+  }
+}
